@@ -2,13 +2,13 @@ console.log("JS is running");
 const hbInput = document.getElementById("hb");
 const rbcInput = document.getElementById("rbc");
 const wbcInput = document.getElementById("wbc");
-const diagnoseButton = document.getElementById("diagnoseBtn");
-const diagnosisBox = document.getElementById("diagnosisBox");
 const pltInput = document.getElementById("plt");
 const mcvInput = document.getElementById("mcv");
 const mchInput = document.getElementById("mch");
 const mchcInput = document.getElementById("mchc");
 const rdwInput = document.getElementById("rdw");
+const diagnoseButton = document.getElementById("diagnoseBtn");
+const diagnosisBox = document.getElementById("diagnosisBox");
 const ranges = {
   hb: { low: 12, high: 16 },
   rbc: { low: 4.0, high: 5.5 },
