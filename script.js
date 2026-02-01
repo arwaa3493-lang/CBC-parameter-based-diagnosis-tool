@@ -31,92 +31,133 @@ diagnoseButton.addEventListener("click", function () {
   const mchc = parseFloat(mchcInput.value);
   const rdw = parseFloat(rdwInput.value);
 
-  let findings = [];
+diagnosisBox.value = analyzeCBC(
+  { hb, rbc, wbc, plt, mcv, mch, mchc, rdw },
+  ranges
+);
 
-if (hb < ranges.hb.low) {
-  findings.push("Low hemoglobin (anemia pattern)");
-}
 
-if (hb > ranges.hb.high) {
-  findings.push("High hemoglobin");
-}
-
-if (rbc < ranges.rbc.low) {
-  findings.push("Low RBC count");
-}
-
-if (rbc > ranges.rbc.high) {
-  findings.push("High RBC count (polycythemia pattern)");
+function flag(value, range) {
+  if (isNaN(value)) return "unknown";
+  if (value < range.low) return "low";
+  if (value > range.high) return "high";
+  return "normal";
 }
 
-if (wbc > ranges.wbc.high) {
-  findings.push("Elevated WBC (infection or inflammation)");
+function analyzeCBC(values, ranges) {
+  const f = {
+    hb: flag(values.hb, ranges.hb),
+    rbc: flag(values.rbc, ranges.rbc),
+    wbc: flag(values.wbc, ranges.wbc),
+    plt: flag(values.plt, ranges.plt),
+    mcv: flag(values.mcv, ranges.mcv),
+    mch: flag(values.mch, ranges.mch),
+    mchc: flag(values.mchc, ranges.mchc),
+    rdw: flag(values.rdw, ranges.rdw)
+  };
+
+  let patterns = [];
+
+  /* ================= ANEMIA ================= */
+
+  if (f.hb === "low") {
+    patterns.push("Anemia");
+
+    if (f.mcv === "low") {
+      patterns.push("Microcytic anemia");
+
+      if (f.rdw === "high") {
+        patterns.push("Iron deficiency anemia");
+      }
+      if (f.rdw === "normal") {
+        patterns.push("Thalassemia trait");
+      }
+    }
+
+    if (f.mcv === "normal") {
+      patterns.push("Normocytic anemia");
+
+      if (f.wbc === "low" && f.plt === "low") {
+        patterns.push("Aplastic anemia or marrow suppression");
+      }
+      if (f.wbc === "high") {
+        patterns.push("Anemia of chronic disease / inflammation");
+      }
+    }
+
+    if (f.mcv === "high") {
+      patterns.push("Macrocytic anemia");
+
+      patterns.push("Consider B12 or folate deficiency");
+    }
+
+    if (f.mchc === "low") {
+      patterns.push("Hypochromia");
+    }
+  }
+
+  /* ================= POLYCYTHEMIA ================= */
+
+  if (f.hb === "high" && f.rbc === "high") {
+    patterns.push("Polycythemia");
+
+    if (f.wbc === "high" && f.plt === "high") {
+      patterns.push("Consider polycythemia vera");
+    }
+    if (f.wbc === "normal" && f.plt === "normal") {
+      patterns.push("Secondary polycythemia (hypoxia, dehydration)");
+    }
+  }
+
+  /* ================= WBC ================= */
+
+  if (f.wbc === "high") {
+    patterns.push("Leukocytosis");
+
+    if (f.hb === "low") {
+      patterns.push("Possible infection with anemia of inflammation");
+    }
+  }
+
+  if (f.wbc === "low") {
+    patterns.push("Leukopenia");
+
+    if (f.plt === "low") {
+      patterns.push("Bone marrow suppression or viral infection");
+    }
+  }
+
+  /* ================= PLATELETS ================= */
+
+  if (f.plt === "low") {
+    patterns.push("Thrombocytopenia");
+
+    if (f.wbc === "low" && f.hb === "low") {
+      patterns.push("Pancytopenia");
+    }
+  }
+
+  if (f.plt === "high") {
+    patterns.push("Thrombocytosis");
+
+    if (f.hb === "low") {
+      patterns.push("Reactive thrombocytosis (iron deficiency)");
+    }
+  }
+
+  /* ================= RDW ================= */
+
+  if (f.rdw === "high" && f.hb === "normal") {
+    patterns.push("Early nutritional deficiency");
+  }
+
+  /* ================= FINAL ================= */
+
+  if (patterns.length === 0) {
+    return "CBC within normal limits.";
+  }
+
+  return [...new Set(patterns)].join(". ") + ".";
 }
 
-if (wbc < ranges.wbc.low) {
-  findings.push("Low WBC (possible marrow suppression)");
-}
-
-if (findings.length === 0) {
-  diagnosisBox.value = "All values are within normal reference ranges.";
-}
-// Platelets
-if (plt < ranges.plt.low) {
-  findings.push("Thrombocytopenia (low platelet count)");
-}
-if (plt > ranges.plt.high) {
-  findings.push("Thrombocytosis (elevated platelet count)");
-}
-
-// RBC indices – anemia typing
-if (mcv < ranges.mcv.low) {
-  findings.push("Microcytic pattern");
-}
-if (mcv > ranges.mcv.high) {
-  findings.push("Macrocytic pattern");
-}
-
-if (mch < ranges.mch.low || mchc < ranges.mchc.low) {
-  findings.push("Hypochromic red cells");
-}
-
-if (rdw > ranges.rdw.high) {
-  findings.push("Increased RDW (anisocytosis)");
-}
-
-// Pattern synthesis (this is where you level up)
-if (
-  hb < ranges.hb.low &&
-  mcv < ranges.mcv.low &&
-  rdw > ranges.rdw.high
-) {
-  findings.push("Pattern consistent with iron deficiency anemia");
-}
-
-if (
-  hb < ranges.hb.low &&
-  mcv < ranges.mcv.low &&
-  rdw <= ranges.rdw.high
-) {
-  findings.push("Pattern consistent with thalassemia trait");
-}
-
-if (
-  hb < ranges.hb.low &&
-  mcv > ranges.mcv.high
-) {
-  findings.push("Pattern consistent with megaloblastic anemia");
-}
-
-if (
-  hb < ranges.hb.low &&
-  wbc < ranges.wbc.low &&
-  plt < ranges.plt.low
-) {
-  findings.push("Pancytopenia – consider bone marrow suppression");
-}
-
-else {
-  diagnosisBox.value = findings.join(". ") + ".";
-}
-
+  
