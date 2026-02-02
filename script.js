@@ -1,4 +1,4 @@
-console.log("JS is running");
+console.log("JS is running")
 const hbInput = document.getElementById("hb");
 const rbcInput = document.getElementById("rbc");
 const wbcInput = document.getElementById("wbc");
@@ -35,6 +35,7 @@ diagnosisBox.value = analyzeCBC(
   { hb, rbc, wbc, plt, mcv, mch, mchc, rdw },
   ranges
 );
+                         }
 
 
 function flag(value, range) {
