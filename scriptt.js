@@ -42,29 +42,29 @@ diagnoseButton.addEventListener("click", function () {
   else if (wbc > ranges.wbc.high) {
     result = "Possible infection, inflammation, leukemia, or autoimmune disease. Check blood film.";
   }
- else if (plt > ranges.plt.high) {
+  else if (plt > ranges.plt.high) {
     result = "Possible Essential Thrompocythemia. check blood film and clinical history."
- }
+  }
  
-else if (plt < ranges.plt.low) {
-   result = " Most classically, Immune Thrombocytopenic Purpura if the plt is extremely low. otherwise, thrompoctopenia due to viral illnes, medication, hypersplenism, or iron deficiency"
+  else if (plt < ranges.plt.low) {
+    result = " Most classically, Immune Thrombocytopenic Purpura if the plt is extremely low. otherwise, thrompoctopenia due to viral illnes, medication, hypersplenism, or iron deficiency"
                                          }
 
-else if (mcv > ranges.mcv.high) {
-   result = " Megaloblastic anemia, Alcohol abuse, liver disease, hypothyroidism, myelodysplastic syndrome. check clinicaal picture."
+  else if (mcv > ranges.mcv.high) {
+    result = " Megaloblastic anemia, Alcohol abuse, liver disease, hypothyroidism, myelodysplastic syndrome. check clinicaal picture."
 }
 
-else if (mcv < ranges.mcv.low) {
-  result = "Iron deficiency, Thalassemia trait, harmless slight microcytosis. Check blood film." 
+  else if (mcv < ranges.mcv.low) {
+    result = "Iron deficiency, Thalassemia trait, harmless slight microcytosis. Check blood film." 
 }
-else if (mch > ranges.mch.high && mchc > ranges.mchc.high) {
-  result = "Hereditary spherocytosis. However, it is uncommon pattern. possible cold agglutinins. warm up the sample and run again."
+  else if (mch > ranges.mch.high && mchc > ranges.mchc.high) {
+    result = "Hereditary spherocytosis. However, it is uncommon pattern. possible cold agglutinins. warm up the sample and run again."
 }
-else if (mchc < ranges.mch.low && mchc < ranges.mchc.low) {
-  result = "Hypochromia : Iron Deficiency or Thalassemia trait. If slight however, it is normal. check blood film." 
+  else if (mchc < ranges.mch.low && mchc < ranges.mchc.low) {
+    result = "Hypochromia : Iron Deficiency or Thalassemia trait. If slight however, it is normal. check blood film." 
 }
-else if (rdw > ranges.rdw.high) {
-  result = " Anisocytosis, variation of size between cells. Not a uniform shape." 
+  else if (rdw > ranges.rdw.high) {
+    result = " Anisocytosis, variation of size between cells. Not a uniform shape." 
 }
   else {
     result = "Values are within normal limits or inconclusive.";
