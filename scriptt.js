@@ -66,10 +66,10 @@ diagnoseButton.addEventListener("click", function () {
   else if (rdw > ranges.rdw.high) {
     result = " Anisocytosis, variation of size between cells. Not a uniform shape." 
 }
-  else if (hb < ranges.hb.low && rdw > ranges.rdw.high && mch < ranges.mch.low && mchc < ranges.mchc.low && rbc > ranges.rbc.high && mcv < ranges.mcv.low) {
+else if (hb < ranges.hb.low && rdw > ranges.rdw.high && mch < ranges.mch.low && mchc < ranges.mchc.low && rbc > ranges.rbc.high && mcv < ranges.mcv.low) {
     result = " Hemoglobin H disese. confirmation done by supravital stains that show blue aggregates."
     }
- else if (hb < ranges.hb.low && rbc < ranges.rbc.low && mcv > ranges.mcv.high && plt < ranges.plt.low) {
+else if (hb < ranges.hb.low && rbc < ranges.rbc.low && mcv > ranges.mcv.high && plt < ranges.plt.low) {
     result = " Hemolytic uremic syndrome. confirmation: RFTs + Schistocytes in blood film." 
     }
 else if (hb < ranges.hb.low && rbc < ranges.rbc.low && rdw > ranges.rdw.high && wbc > ranges.wbc.high) {
