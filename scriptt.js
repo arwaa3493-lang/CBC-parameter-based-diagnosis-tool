@@ -34,7 +34,7 @@ diagnoseButton.addEventListener("click", function () {
   let result = "";
  
   if (hb < ranges.hb.low && rdw > ranges.rdw.high && mch < ranges.mch.low && mchc < ranges.mchc.low && rbc > ranges.rbc.high && mcv < ranges.mcv.low) {
-    result = " Hemoglobin H disese. confirmation done by supravital stains that show blue aggregates. \n";
+    result = " Hemoglobin H disease. confirmation done by supravital stains that show blue aggregates. \n";
     }
  if (hb < ranges.hb.low && rbc < ranges.rbc.low && mcv > ranges.mcv.high && plt < ranges.plt.low) {
     result = " Hemolytic uremic syndrome. confirmation: RFTs + Schistocytes in blood film.\n"; 
