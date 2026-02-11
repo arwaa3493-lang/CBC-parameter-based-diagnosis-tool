@@ -47,7 +47,7 @@ diagnoseButton.addEventListener("click", function () {
   }
  
   else if (plt < ranges.plt.low) {
-    result = " Most classically, Immune Thrombocytopenic Purpura if the plt is extremely low. otherwise, thrompoctopenia due to viral illnes, medication, hypersplenism, or iron deficiency"
+    result = " Most classically, Alcoholic liver disease, to confirm: check LFTs. Others: Immune Thrombocytopenic Purpura if the plt is extremely low. otherwise, thrompoctopenia due to viral illnes, medication, hypersplenism, or iron deficiency"
                                          }
 
   else if (mcv > ranges.mcv.high) {
@@ -66,6 +66,15 @@ diagnoseButton.addEventListener("click", function () {
   else if (rdw > ranges.rdw.high) {
     result = " Anisocytosis, variation of size between cells. Not a uniform shape." 
 }
+  else if (hb < ranges.hb.low && rdw > ranges.rdw.high && mch < ranges.mch.low && mchc < ranges.mchc.low && rbc > ranges.rbc.high) {
+    result = " Hemoglobin H disese. confirmation done by supravital stains that show blue aggregates."
+    }
+ else if (hb < ranges.hb.low && rbc < ranges.rbc.low && mcv > ranges.mcv.high && plt < ranges.plt.low) {
+    result = " Hemolytic uremic syndrome. confirmation: RFTs + Schistocytes in blood film." 
+    }
+else if (hb < ranges.hb.low && rbc < ranges.rbc.low && rdw > ranges.rdw.high && wbc > ranges.wbc.high) {
+  result = " If reticulocyte count is high + DAT is positive 'n Autoimmune hemolytic anemia. Otherwise, check blood film for possible leukemia." 
+      }
   else {
     result = "Values are within normal limits or inconclusive.";
   }
